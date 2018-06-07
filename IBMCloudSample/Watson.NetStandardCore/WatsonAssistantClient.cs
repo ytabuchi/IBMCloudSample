@@ -40,75 +40,14 @@ namespace Watson.NetStandardCore
             try
             {
                 var messegeResponse = await Task.Run(() => _assistant.Message(_workspaceId, messageRequest));
-                var res = JsonConvert.DeserializeObject<AssistantResponseJson>(messegeResponse.ResponseJson);
+                var res = JsonConvert.DeserializeObject<Models.WatsonAssistantModel>(messegeResponse.ResponseJson);
 
-                return res.Outputs.Texts[0];
+                return res.Output.Text[0];
             }
             catch (Exception)
             {
                 return "some error";
             }
         }
-    }
-
-    // Watson からの Json
-    class AssistantResponseJson
-    {
-        public class Intent
-        {
-            public string intent { get; set; }
-            public int confidence { get; set; }
-        }
-
-        public class Input
-        {
-            [JsonProperty(PropertyName = "text")]
-            public string Text { get; set; }
-        }
-
-        public class Output
-        {
-            [JsonProperty(PropertyName = "text")]
-            public List<string> Texts { get; set; }
-            [JsonProperty(PropertyName = "nodes_visited")]
-            public List<string> VisitedNodes { get; set; }
-            [JsonProperty(PropertyName = "log_messages")]
-            public List<object> LogMessages { get; set; }
-        }
-
-        public class DialogStack
-        {
-            public string dialog_node { get; set; }
-        }
-
-        public class NodeOutputMap
-        {
-            public List<int> node_1_1524556849654 { get; set; }
-        }
-
-        public class System
-        {
-            public List<DialogStack> dialog_stack { get; set; }
-            public int dialog_turn_counter { get; set; }
-            public int dialog_request_counter { get; set; }
-            public NodeOutputMap _node_output_map { get; set; }
-            public bool branch_exited { get; set; }
-            public string branch_exited_reason { get; set; }
-        }
-
-        public class Context
-        {
-            public string conversation_id { get; set; }
-            public System system { get; set; }
-        }
-
-        public List<Intent> intents { get; set; }
-        public List<object> entities { get; set; }
-        [JsonProperty(PropertyName = "input")]
-        public Input Inputs { get; set; }
-        [JsonProperty(PropertyName = "output")]
-        public Output Outputs { get; set; }
-        public Context context { get; set; }
-        public bool alternate_intents { get; set; }
     }
 }

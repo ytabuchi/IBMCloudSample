@@ -3,6 +3,7 @@ using IBM.WatsonDeveloperCloud.Assistant.v1.Model;
 using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using Watson.NetStandardCore;
 
 namespace Watson.NetCoreConsole
 {
