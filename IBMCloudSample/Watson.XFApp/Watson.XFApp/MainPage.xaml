@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Watson.XFApp.MainPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Watson.XFApp.Helpers">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!--  DataTemplate定義  -->
+            <DataTemplate x:Key="inputTemplate">
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Margin="0,5"
+                               HorizontalOptions="EndAndExpand"
+                               FontSize="Micro"
+                               Text="{Binding Time, StringFormat='{0:HH:mm}'}"
+                               VerticalTextAlignment="End" />
+                        <Label HorizontalOptions="End"
+                               FontSize="Large"
+                               Text="{Binding Text}"
+                               VerticalTextAlignment="Center" />
+                        <Image Margin="0,5"
+                               HorizontalOptions="End"
+                               HeightRequest="50"
+                               Source="{local:ImageResource Source='Watson.XFApp.Helpers.avatar.png'}"
+                               WidthRequest="50" />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="outputTemplate">
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Image Margin="0,5"
+                               HeightRequest="50"
+                               Source="{local:ImageResource Source='Watson.XFApp.Helpers.watson.png'}"
+                               WidthRequest="50" />
+                        <Label VerticalOptions="Center"
+                               FontSize="Large"
+                               Text="{Binding Text}" />
+                        <Label Margin="0,5"
+                               FontSize="Micro"
+                               Text="{Binding Time, StringFormat='{0:HH:mm}'}"
+                               VerticalTextAlignment="End" />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            <!--  Selector指定  -->
+            <local:MessageTemplateSelector x:Key="messageTemplateSelector"
+                                           inputTmpl="{StaticResource inputTemplate}"
+                                           outputTmpl="{StaticResource outputTemplate}" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout>
+        <ListView x:Name="listView"
+                  HasUnevenRows="True"
+                  ItemTemplate="{StaticResource messageTemplateSelector}"
+                  ItemsSource="{Binding}"
+                  SeparatorVisibility="None">
+        </ListView>
+        <StackLayout Orientation="Horizontal">
+            <Entry x:Name="entry"
+                   HorizontalOptions="FillAndExpand"
+                   Text="こんにちは" />
+            <Button x:Name="button"
+                    Clicked="button_Clicked"
+                    Text="Send" />
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>

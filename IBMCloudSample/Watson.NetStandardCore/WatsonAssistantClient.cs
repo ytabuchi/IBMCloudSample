@@ -17,15 +17,15 @@ namespace Watson.NetStandardCore
         static readonly string _workspaceId = Secrets.WorkspaceId;
         static readonly string _versionDate = Secrets.VersionDate;
 
+        AssistantService _assistant = new AssistantService(_username, _password, _versionDate);
+
+        public WatsonAssistantClient()
+        {
+            
+        }
+
         public string GetResponse(string input)
         {
-            // Assistant Serviceのインスタンス作成
-            var _assistant = new AssistantService();
-            // Credentialをセット
-            _assistant.SetCredential(_username, _password);
-            // VersionDateをセット
-            _assistant.VersionDate = _versionDate;
-
             // MessageRequestを作成
             var messageRequest = new MessageRequest()
             {
@@ -36,13 +36,21 @@ namespace Watson.NetStandardCore
             };
 
             // Assistantのインスタンスにメッセージを送信
-            var messegeResponse = _assistant.Message(_workspaceId, messageRequest);
-            var res = JsonConvert.DeserializeObject<AssistantResponseJson>(messegeResponse.ResponseJson);
+            try
+            {
+                var messegeResponse = _assistant.Message(_workspaceId, messageRequest);
+                var res = JsonConvert.DeserializeObject<AssistantResponseJson>(messegeResponse.ResponseJson);
 
-            return res.Outputs.Texts[0];
+                return res.Outputs.Texts[0];
+            }
+            catch (Exception)
+            {
+                return "some error";
+            }
         }
     }
 
+    // Watson からの
     class AssistantResponseJson
     {
         public class Intent
