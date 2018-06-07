@@ -1,4 +1,5 @@
-﻿using IBM.WatsonDeveloperCloud.Assistant.v1;
+﻿using CloudServices.Core;
+using IBM.WatsonDeveloperCloud.Assistant.v1;
 using IBM.WatsonDeveloperCloud.Assistant.v1.Model;
 using Newtonsoft.Json;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Watson.NetStandardCore
 {
-    public class WatsonAssistantClient
+    public class WatsonAssistantClient : ICloudService
     {
         static readonly string _username = Secrets.UserName;
         static readonly string _password = Secrets.Password;
@@ -24,7 +25,7 @@ namespace Watson.NetStandardCore
             
         }
 
-        public string GetResponse(string input)
+        public async Task<string> GetResponseAsync(string input)
         {
             // MessageRequestを作成
             var messageRequest = new MessageRequest()
@@ -38,7 +39,7 @@ namespace Watson.NetStandardCore
             // Assistantのインスタンスにメッセージを送信
             try
             {
-                var messegeResponse = _assistant.Message(_workspaceId, messageRequest);
+                var messegeResponse = await Task.Run(() => _assistant.Message(_workspaceId, messageRequest));
                 var res = JsonConvert.DeserializeObject<AssistantResponseJson>(messegeResponse.ResponseJson);
 
                 return res.Outputs.Texts[0];
@@ -50,7 +51,7 @@ namespace Watson.NetStandardCore
         }
     }
 
-    // Watson からの
+    // Watson からの Json
     class AssistantResponseJson
     {
         public class Intent

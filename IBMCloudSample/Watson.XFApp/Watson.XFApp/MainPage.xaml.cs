@@ -1,4 +1,5 @@
-﻿using System;
+﻿#define IBM
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -7,13 +8,20 @@ using System.Threading.Tasks;
 using Watson.NetStandardCore;
 using Xamarin.Forms;
 using Watson.XFApp.Models;
+using CloudServices.Core;
+using Azure.NetStandardCore;
 
 namespace Watson.XFApp
 {
     public partial class MainPage : ContentPage
     {
+#if IBM
+        private readonly ICloudService cloudService = new WatsonAssistantClient();
+#else
+        private readonly ICloudService cloudService = new CognitiveClient();
+#endif
         ObservableCollection<Message> _messages = new ObservableCollection<Message>();
-        WatsonAssistantClient client = new WatsonAssistantClient();
+        //WatsonAssistantClient client = new WatsonAssistantClient();
 
         public MainPage()
         {
@@ -21,7 +29,7 @@ namespace Watson.XFApp
             this.BindingContext = _messages;
         }
 
-        private void button_Clicked(object sender, EventArgs e)
+        private async void button_Clicked(object sender, EventArgs e)
         {
             // インプットメッセージを追加
             var input = new Message
@@ -30,14 +38,14 @@ namespace Watson.XFApp
                 Time = DateTime.Now,
                 Type = "input"
             };
+            _messages.Add(input);
 
             // アウトプットメッセージを取得
             var output = new Message
             {
-                Text = client.GetResponse(entry.Text),
+                Text = await cloudService.GetResponseAsync(entry.Text),
                 Time = DateTime.Now
             };
-            _messages.Add(input);
             _messages.Add(output);
         }
     }

@@ -152,7 +152,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\Watson.XFApp\Watson.XFApp.csproj">
-      <Project>{D5B8B9E5-2F5E-43D1-89EE-9F11856DBF07}</Project>
+      <Project>{5E5AB869-3764-4F69-B609-816ED2417F5D}</Project>
       <Name>Watson.XFApp</Name>
     </ProjectReference>
   </ItemGroup>
