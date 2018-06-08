@@ -1,4 +1,5 @@
-﻿#define IBM
+﻿//#define Watson
+#define NodeRed
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,8 +16,11 @@ namespace Watson.XFApp
 {
     public partial class MainPage : ContentPage
     {
-#if IBM
+        //接続先の変更
+#if Watson
         private readonly ICloudService cloudService = new WatsonAssistantClient();
+#elif NodeRed
+        private readonly ICloudService cloudService = new NodeRedClient();
 #else
         private readonly ICloudService cloudService = new CognitiveClient();
 #endif
@@ -39,6 +43,7 @@ namespace Watson.XFApp
                 Type = "input"
             };
             _messages.Add(input);
+            listView.ScrollTo(_messages[_messages.Count - 1], ScrollToPosition.End, true);
 
             // アウトプットメッセージを取得
             var output = new Message
@@ -47,6 +52,7 @@ namespace Watson.XFApp
                 Time = DateTime.Now
             };
             _messages.Add(output);
+            listView.ScrollTo(_messages[_messages.Count -1], ScrollToPosition.End, true);
         }
     }
 
