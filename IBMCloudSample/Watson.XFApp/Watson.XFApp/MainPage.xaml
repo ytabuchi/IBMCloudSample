@@ -2,9 +2,9 @@
 <ContentPage x:Class="Watson.XFApp.MainPage"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
-             ios:Page.UseSafeArea="true"
-             xmlns:local="clr-namespace:Watson.XFApp.Helpers">
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:local="clr-namespace:Watson.XFApp.Helpers"
+             ios:Page.UseSafeArea="true">
     <ContentPage.Resources>
         <ResourceDictionary>
             <!--  DataTemplate定義  -->
@@ -17,7 +17,7 @@
                                Text="{Binding Time, StringFormat='{0:HH:mm}'}"
                                VerticalTextAlignment="End" />
                         <Label HorizontalOptions="End"
-                               FontSize="Large"
+                               FontSize="Medium"
                                Text="{Binding Text}"
                                VerticalTextAlignment="Center" />
                         <Image Margin="0,5"
@@ -36,7 +36,7 @@
                                Source="{local:ImageResource Source='Watson.XFApp.Helpers.watson.png'}"
                                WidthRequest="50" />
                         <Label VerticalOptions="Center"
-                               FontSize="Large"
+                               FontSize="Medium"
                                Text="{Binding Text}" />
                         <Label Margin="0,5"
                                FontSize="Micro"
@@ -76,12 +76,15 @@
 
     <StackLayout>
         <ListView x:Name="listView"
+                  VerticalOptions="FillAndExpand"
                   HasUnevenRows="True"
                   ItemTemplate="{StaticResource messageTemplateSelector}"
                   ItemsSource="{Binding}"
                   SeparatorVisibility="None">
         </ListView>
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Padding="5"
+                     Orientation="Horizontal"
+                     Spacing="5">
             <Entry x:Name="entry"
                    HorizontalOptions="FillAndExpand"
                    Text="こんにちは" />
