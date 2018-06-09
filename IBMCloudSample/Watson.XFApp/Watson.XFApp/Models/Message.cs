@@ -10,5 +10,6 @@ namespace Watson.XFApp.Models
         // inputかoutputかを指定
         public string Type { get; set; }
         public DateTime Time { get; set; }
+        public string ChatSource { get; set; } = "watson";
     }
 }

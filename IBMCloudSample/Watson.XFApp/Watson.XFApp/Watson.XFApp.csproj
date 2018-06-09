@@ -7,6 +7,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Helpers\avatar.png" />
     <EmbeddedResource Include="Helpers\watson.png" />
+    <EmbeddedResource Include="Helpers\azure.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,5 +18,8 @@
     <ProjectReference Include="..\..\Watson.NetStandardCore\Watson.NetStandardCore.csproj" />
     <ProjectReference Include="..\..\CloudServices.Core\CloudServices.Core.csproj" />
     <ProjectReference Include="..\..\Azure.NetStandardCore\Azure.NetStandardCore.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Helpers\azure.png" />
   </ItemGroup>
 </Project>

@@ -30,7 +30,9 @@ namespace Azure.NetStandardCore
                     return result.Message;
                 }
 
-                var sentimentAverage = (int)(result.Sentiments.Average() * 100);
+                var sentimentAverage = (int)(result.Sentiments.Any() ?
+                                             result.Sentiments.Average() * 100 :
+                                             0);
                 return $@"{result.TwitterName}さんは{sentimentAverage}%ポジティブです☺
 
 直近 {result.Sentiments.Length} 件のツイートのキーワードは 

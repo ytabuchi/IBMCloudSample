@@ -28,7 +28,7 @@
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
-            <DataTemplate x:Key="outputTemplate">
+            <DataTemplate x:Key="outputTemplateWatson">
                 <ViewCell>
                     <StackLayout Orientation="Horizontal" Spacing="10">
                         <Image Margin="0,5"
@@ -45,10 +45,32 @@
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
+            <DataTemplate x:Key="outputTemplateAzure">
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Image Margin="0,5"
+                               HeightRequest="50"
+                               Source="{local:ImageResource Source='Watson.XFApp.Helpers.azure.png'}"
+                               WidthRequest="50" />
+                        <Label VerticalOptions="Center"
+                               FontSize="Large"
+                               Text="{Binding Text}" />
+                        <Label Margin="0,5"
+                               FontSize="Micro"
+                               Text="{Binding Time, StringFormat='{0:HH:mm}'}"
+                               VerticalTextAlignment="End" />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
             <!--  Selector指定  -->
-            <local:MessageTemplateSelector x:Key="messageTemplateSelector"
-                                           inputTmpl="{StaticResource inputTemplate}"
-                                           outputTmpl="{StaticResource outputTemplate}" />
+            <local:MessageTemplateSelector x:Key="messageTemplateSelector">
+                <local:Template TemplateType="input"
+                                DataTemplate="{StaticResource inputTemplate}" />
+                <local:Template TemplateType="watson"
+                                DataTemplate="{StaticResource outputTemplateWatson}" />
+                <local:Template TemplateType="azure"
+                                DataTemplate="{StaticResource outputTemplateAzure}" />                
+            </local:MessageTemplateSelector>
         </ResourceDictionary>
     </ContentPage.Resources>
 
