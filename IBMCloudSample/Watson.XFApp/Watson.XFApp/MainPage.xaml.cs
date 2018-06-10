@@ -49,7 +49,12 @@ namespace Watson.XFApp
             var output = new Message
             {
                 Text = await cloudService.GetResponseAsync(entry.Text),
-                Time = DateTime.Now
+                Time = DateTime.Now,
+#if IBM
+                Type = "watson",
+#else
+                Type = "azure",
+#endif
             };
             _messages.Add(output);
             listView.ScrollTo(_messages[_messages.Count -1], ScrollToPosition.End, true);
