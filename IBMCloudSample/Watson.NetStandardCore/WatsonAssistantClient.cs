@@ -13,6 +13,7 @@ namespace Watson.NetStandardCore
 {
     public class WatsonAssistantClient : ICloudService
     {
+        //Watson Client(AssistantService)のインスタンス化に必要な情報
         static readonly string _username = Secrets.UserName;
         static readonly string _password = Secrets.Password;
         static readonly string _workspaceId = Secrets.WorkspaceId;
