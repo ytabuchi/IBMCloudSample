@@ -11,7 +11,7 @@ namespace Watson.NetStandardCore
     {
         public async Task<string> GetResponseAsync(string input)
         {
-            var _nodeRedUrl = new Uri("https://xm-node-red-sample.mybluemix.net");
+            var _nodeRedUrl = Secrets.NodeRedUrl;
 
             using (var client = new HttpClient())
             {
