@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Watson.NetStandardCore\Watson.NetStandardCore.csproj" />
+    <ProjectReference Include="..\CloudServices.Core\CloudServices.Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,9 +7,8 @@ namespace Watson.XFApp.Models
     class Message
     {
         public string Text { get; set; }
-        // inputかoutputかを指定
+        // inputか、どのoutputかを指定
         public string Type { get; set; }
         public DateTime Time { get; set; }
-        public string ChatSource { get; set; } = "watson";
     }
 }

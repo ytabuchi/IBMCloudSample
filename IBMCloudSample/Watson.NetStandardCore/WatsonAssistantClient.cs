@@ -26,6 +26,7 @@ namespace Watson.NetStandardCore
             
         }
 
+        // Watson SDKを使用してレスポンスを取得
         public async Task<string> GetResponseAsync(string input)
         {
             // MessageRequestを作成
@@ -40,14 +41,16 @@ namespace Watson.NetStandardCore
             // Assistantのインスタンスにメッセージを送信
             try
             {
+                // Assistant SDKは同期メソッドしかないのでTask化
                 var messegeResponse = await Task.Run(() => _assistant.Message(_workspaceId, messageRequest));
-                var res = JsonConvert.DeserializeObject<Models.WatsonAssistantModel>(messegeResponse.ResponseJson);
+                // 返信のJSONは`MessageResponse.ResponseJson`で取得できるので、オブジェクト化する
+                var res = JsonConvert.DeserializeObject<WatsonAssistantModel>(messegeResponse.ResponseJson);
 
                 return res.Output.Text[0];
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return "some error";
+                return $"エラーが発生しました。\n{ex.Message}";
             }
         }
     }

@@ -12,9 +12,10 @@ namespace Watson.XFApp.Helpers
     {
         public List<Template> Templates { get; } = new List<Template>();
 
-        // itemにはセルのデータ、containerにはセルの親(ListViewやTableView)が渡される
+        // itemにはセルのデータ、containerにはセルの親(ListViewやTableView)が渡されます
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
+            // outputのMessageを取得する際に、#defineで指定したTypeを取得してテンプレートを指定します
             return Templates.FirstOrDefault(x => x.TemplateType == ((Message)item).Type)?.DataTemplate;
         }
 
@@ -22,16 +23,7 @@ namespace Watson.XFApp.Helpers
 
     public class Template
     {
-        public string TemplateType
-        {
-            get;
-            set;
-        }
-
-        public DataTemplate DataTemplate
-        {
-            get;
-            set;
-        }
+        public string TemplateType { get; set; }
+        public DataTemplate DataTemplate { get; set; }
     }
 }

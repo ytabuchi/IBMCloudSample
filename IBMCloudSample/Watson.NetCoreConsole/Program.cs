@@ -4,6 +4,7 @@ using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using Watson.NetStandardCore;
+using System.Threading.Tasks;
 
 namespace Watson.NetCoreConsole
 {
@@ -14,17 +15,16 @@ namespace Watson.NetCoreConsole
         static readonly string _workspaceId = Secrets.WorkspaceId;
         static readonly string _versionDate = Secrets.VersionDate;
 
-
         static void Main(string[] args)
         {
-            // Assistant Serviceのインスタンス作成
+            // Assistant Service のインスタンス作成
             var _assistant = new AssistantService();
-            // Credentialをセット
+            // Credential をセット
             _assistant.SetCredential(_username, _password);
-            // VersionDateをセット
+            // VersionDate をセット
             _assistant.VersionDate = _versionDate;
 
-            // MessageRequestを作成
+            // MessageRequest を作成
             var messageRequest0 = new MessageRequest()
             {
                 Input = new InputData()
@@ -32,13 +32,14 @@ namespace Watson.NetCoreConsole
                     Text = "こんにちは",
                 }
             };
+            System.Console.WriteLine($"input: {messageRequest0.Input.Text}");
 
-            // Assistantのインスタンスにメッセージを送信
+            // Assistant のインスタンスにメッセージを送信
             var result0 = _assistant.Message(_workspaceId, messageRequest0);
             var res0 = JsonConvert.DeserializeObject<AssistantResponseJson>(result0.ResponseJson);
-            System.Console.WriteLine(res0.Outputs.Texts[0]);
+            System.Console.WriteLine($"rerult: {res0.Outputs.Texts[0]}");
 
-            //  reference the message context to continue a conversation
+            // 別の input を作成
             var messageRequest1 = new MessageRequest()
             {
                 Input = new InputData()
@@ -46,16 +47,20 @@ namespace Watson.NetCoreConsole
                     Text = "またね",
                 }
             };
+            System.Console.WriteLine($"input: {messageRequest1.Input.Text}");
 
-            //  Send another message including message context.
+            // 同じくメッセージを送信
             var result1 = _assistant.Message(_workspaceId, messageRequest1);
             var res1 = JsonConvert.DeserializeObject<AssistantResponseJson>(result1.ResponseJson);
-            System.Console.WriteLine(res1.Outputs.Texts[0]);
+            System.Console.WriteLine($"rerult: {res1.Outputs.Texts[0]}");
 
             #region Net Standard Core
+            // Watson.NetStandardCoreに作成したAssistantServiceをラップしたGetResponseAsyncメソッドを呼び出しても同じ結果が得られます。
+            // `static void Main(string[] args)`を`static async Task Main(string[] args)`に変えて試してみてください。
+
             //var client = new Watson.NetStandardCore.WatsonAssistantClient();
-            //var res1 = client.GetResponse("こんにちは");
-            //var res2 = client.GetResponse("またね");
+            //var res2 = await client.GetResponseAsync("こんにちは");
+            //var res3 = await client.GetResponseAsync("またね");
 
             //Console.WriteLine(res1);
             //Console.WriteLine(res2);
@@ -65,6 +70,9 @@ namespace Watson.NetCoreConsole
         }
     }
 
+    /// <summary>
+    /// Assistant の response JSONです
+    /// </summary>
     class AssistantResponseJson
     {
         public class Intent
@@ -115,7 +123,6 @@ namespace Watson.NetCoreConsole
             public System system { get; set; }
         }
 
-        
         public List<Intent> intents { get; set; }
         public List<object> entities { get; set; }
         [JsonProperty(PropertyName = "input")]
@@ -124,8 +131,5 @@ namespace Watson.NetCoreConsole
         public Output Outputs { get; set; }
         public Context context { get; set; }
         public bool alternate_intents { get; set; }
-
     }
-
-
 }

@@ -1,5 +1,7 @@
-﻿//#define Watson
-#define NodeRed
+﻿//接続先によりコメントアウトします。両方コメントアウトするとAzureに接続します。
+#define Watson
+//#define NodeRed
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,8 +26,8 @@ namespace Watson.XFApp
 #else
         private readonly ICloudService cloudService = new CognitiveClient();
 #endif
+
         ObservableCollection<Message> _messages = new ObservableCollection<Message>();
-        //WatsonAssistantClient client = new WatsonAssistantClient();
 
         public MainPage()
         {
@@ -50,10 +52,12 @@ namespace Watson.XFApp
             {
                 Text = await cloudService.GetResponseAsync(entry.Text),
                 Time = DateTime.Now,
-#if IBM
-                Type = "watson",
+#if Watson
+                Type = "watson"
+#elif NodeRed
+                Type = "watson"
 #else
-                Type = "azure",
+                Type = "azure"
 #endif
             };
             _messages.Add(output);

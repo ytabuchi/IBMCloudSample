@@ -7,7 +7,8 @@
              ios:Page.UseSafeArea="true">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <!--  DataTemplate定義  -->
+            <!--  DataTemplate を定義しています。  -->
+            <!-- inputTemplate -->
             <DataTemplate x:Key="inputTemplate">
                 <ViewCell>
                     <StackLayout Orientation="Horizontal" Spacing="10">
@@ -28,6 +29,7 @@
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
+            <!-- IBM Cloud 用のテンプレート outputTemplateWatson -->
             <DataTemplate x:Key="outputTemplateWatson">
                 <ViewCell>
                     <StackLayout Orientation="Horizontal" Spacing="10">
@@ -45,6 +47,7 @@
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
+            <!-- Azure 用のテンプレート outputTemplateAzure -->
             <DataTemplate x:Key="outputTemplateAzure">
                 <ViewCell>
                     <StackLayout Orientation="Horizontal" Spacing="10">
@@ -53,7 +56,7 @@
                                Source="{local:ImageResource Source='Watson.XFApp.Helpers.azure.png'}"
                                WidthRequest="50" />
                         <Label VerticalOptions="Center"
-                               FontSize="Large"
+                               FontSize="Medium"
                                Text="{Binding Text}" />
                         <Label Margin="0,5"
                                FontSize="Micro"
@@ -74,7 +77,9 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
+    <!-- 実際のレイアウト -->
     <StackLayout>
+        <!-- ItemTemplateにmessageTemplateSelectorを指定することでMessageTemplateSelectorが呼び出されます -->
         <ListView x:Name="listView"
                   VerticalOptions="FillAndExpand"
                   HasUnevenRows="True"

@@ -1,0 +1,100 @@
+{
+  "luis_schema_version": "3.0.0",
+  "versionId": "0.1",
+  "name": "IBMdemo180611",
+  "desc": "",
+  "culture": "ja-jp",
+  "intents": [
+    {
+      "name": "CharacterAnalytics"
+    },
+    {
+      "name": "Greetings"
+    },
+    {
+      "name": "None"
+    }
+  ],
+  "entities": [
+    {
+      "name": "TwitterName",
+      "roles": []
+    }
+  ],
+  "composites": [],
+  "closedLists": [],
+  "patternAnyEntities": [],
+  "regex_entities": [],
+  "prebuiltEntities": [],
+  "model_features": [],
+  "regex_features": [],
+  "patterns": [
+    {
+      "pattern": "{TwitterName}の性格は？",
+      "intent": "CharacterAnalytics"
+    },
+    {
+      "pattern": "{TwitterName}の性格を教えて",
+      "intent": "CharacterAnalytics"
+    },
+    {
+      "pattern": "{TwitterName}ってどんな人",
+      "intent": "CharacterAnalytics"
+    }
+  ],
+  "utterances": [
+    {
+      "text": "chomadoの性格は",
+      "intent": "CharacterAnalytics",
+      "entities": [
+        {
+          "entity": "TwitterName",
+          "startPos": 0,
+          "endPos": 6
+        }
+      ]
+    },
+    {
+      "text": "chomadoの性格は？",
+      "intent": "CharacterAnalytics",
+      "entities": [
+        {
+          "entity": "TwitterName",
+          "startPos": 0,
+          "endPos": 6
+        }
+      ]
+    },
+    {
+      "text": "ytabuchiの性格を教えて",
+      "intent": "CharacterAnalytics",
+      "entities": [
+        {
+          "entity": "TwitterName",
+          "startPos": 0,
+          "endPos": 7
+        }
+      ]
+    },
+    {
+      "text": "おはよう",
+      "intent": "Greetings",
+      "entities": []
+    },
+    {
+      "text": "こんにちは",
+      "intent": "Greetings",
+      "entities": []
+    },
+    {
+      "text": "こんばんは",
+      "intent": "Greetings",
+      "entities": []
+    },
+    {
+      "text": "ハロー",
+      "intent": "Greetings",
+      "entities": []
+    }
+  ]
+}

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-namespace Watson.NetStandardCore.Models
+
+namespace Watson.NetStandardCore
 {
     public partial class WatsonAssistantModel
     {
