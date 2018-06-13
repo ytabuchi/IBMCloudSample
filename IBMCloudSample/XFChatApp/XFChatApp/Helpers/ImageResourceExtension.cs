@@ -1,4 +1,6 @@
-﻿using System;
+﻿// XAMLで埋め込みリソース画像を表示するには？
+// http://www.atmarkit.co.jp/ait/articles/1610/05/news020.html
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;

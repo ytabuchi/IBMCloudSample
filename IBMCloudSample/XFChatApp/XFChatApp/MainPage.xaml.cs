@@ -1,6 +1,6 @@
 ﻿//接続先によりコメントアウトします。両方コメントアウトするとAzureに接続します。
-#define Watson
-//#define NodeRed
+//#define Watson
+#define NodeRed
 
 using System;
 using System.Collections.Generic;
