@@ -3,7 +3,7 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             xmlns:local="clr-namespace:Watson.XFApp.Helpers"
+             xmlns:local="clr-namespace:XFChatApp.Helpers"
              ios:Page.UseSafeArea="true">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -24,7 +24,7 @@
                         <Image Margin="0,5"
                                HorizontalOptions="End"
                                HeightRequest="50"
-                               Source="{local:ImageResource Source='Watson.XFApp.Helpers.avatar.png'}"
+                               Source="{local:ImageResource Source='XFChatApp.Helpers.avatar.png'}"
                                WidthRequest="50" />
                     </StackLayout>
                 </ViewCell>
@@ -35,7 +35,7 @@
                     <StackLayout Orientation="Horizontal" Spacing="10">
                         <Image Margin="0,5"
                                HeightRequest="50"
-                               Source="{local:ImageResource Source='Watson.XFApp.Helpers.watson.png'}"
+                               Source="{local:ImageResource Source='XFChatApp.Helpers.watson.png'}"
                                WidthRequest="50" />
                         <Label VerticalOptions="Center"
                                FontSize="Medium"
@@ -53,7 +53,7 @@
                     <StackLayout Orientation="Horizontal" Spacing="10">
                         <Image Margin="0,5"
                                HeightRequest="50"
-                               Source="{local:ImageResource Source='Watson.XFApp.Helpers.azure.png'}"
+                               Source="{local:ImageResource Source='XFChatApp.Helpers.azure.png'}"
                                WidthRequest="50" />
                         <Label VerticalOptions="Center"
                                FontSize="Medium"
