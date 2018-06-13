@@ -1,0 +1,426 @@
+{
+    "$connections": {
+        "value": {
+            "cognitiveservicestextanalytics": {
+                "connectionId": "/subscriptions/d78c3dc1-e2b5-46e3-a985-ce26589dc590/resourceGroups/180611_IBMConf/providers/Microsoft.Web/connections/cognitiveservicestextanalytics",
+                "connectionName": "cognitiveservicestextanalytics",
+                "id": "/subscriptions/d78c3dc1-e2b5-46e3-a985-ce26589dc590/providers/Microsoft.Web/locations/japanwest/managedApis/cognitiveservicestextanalytics"
+            },
+            "luis": {
+                "connectionId": "/subscriptions/d78c3dc1-e2b5-46e3-a985-ce26589dc590/resourceGroups/180611_IBMConf/providers/Microsoft.Web/connections/luis",
+                "connectionName": "luis",
+                "id": "/subscriptions/d78c3dc1-e2b5-46e3-a985-ce26589dc590/providers/Microsoft.Web/locations/japanwest/managedApis/luis"
+            },
+            "twitter": {
+                "connectionId": "/subscriptions/d78c3dc1-e2b5-46e3-a985-ce26589dc590/resourceGroups/180611_IBMConf/providers/Microsoft.Web/connections/twitter",
+                "connectionName": "twitter",
+                "id": "/subscriptions/d78c3dc1-e2b5-46e3-a985-ce26589dc590/providers/Microsoft.Web/locations/japanwest/managedApis/twitter"
+            }
+        }
+    },
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Get_prediction": {
+                "description": "LUISでインテントを取得",
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['luis']['connectionId']"
+                        }
+                    },
+                    "method": "get",
+                    "path": "/luis/v2.0/apps/@{encodeURIComponent('ed3fb63b-c3ab-4066-bb2a-58ba5330e4c6')}/",
+                    "queries": {
+                        "q": "@variables('text')",
+                        "verbose": true
+                    }
+                },
+                "runAfter": {
+                    "感情格納用変数": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection"
+            },
+            "Twitterユーザー名格納用変数": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "userName",
+                            "type": "String"
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "入力パラメータの格納用変数": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "InitializeVariable"
+            },
+            "インテントによる分岐": {
+                "cases": {
+                    "人の性格を聞いているケース": {
+                        "actions": {
+                            "For_each": {
+                                "actions": {
+                                    "Twitter_名があったら": {
+                                        "actions": {
+                                            "userName_に_TwitterName_のエンテティの値を格納する": {
+                                                "inputs": {
+                                                    "name": "userName",
+                                                    "value": "@items('For_each')?['entity']"
+                                                },
+                                                "runAfter": {},
+                                                "type": "SetVariable"
+                                            }
+                                        },
+                                        "expression": {
+                                            "and": [
+                                                {
+                                                    "equals": [
+                                                        "@items('For_each')?['type']",
+                                                        "TwitterName"
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        "runAfter": {},
+                                        "type": "If"
+                                    }
+                                },
+                                "description": "Twitterのユーザー名の取得",
+                                "foreach": "@body('Get_prediction')?['entities']",
+                                "runAfter": {},
+                                "type": "Foreach"
+                            },
+                            "TwitterNameの有無の確認": {
+                                "actions": {
+                                    "応答_3": {
+                                        "inputs": {
+                                            "body": {
+                                                "message": "どなたについて調べたらいいのかわかりません"
+                                            },
+                                            "headers": {
+                                                "Content-Type": "application/json"
+                                            },
+                                            "statusCode": 200
+                                        },
+                                        "kind": "Http",
+                                        "runAfter": {},
+                                        "type": "Response"
+                                    }
+                                },
+                                "else": {
+                                    "actions": {
+                                        "For_each_2": {
+                                            "actions": {
+                                                "RT_以外のものを判定する": {
+                                                    "actions": {
+                                                        "For_each_3": {
+                                                            "actions": {
+                                                                "キーフレーズの格納": {
+                                                                    "inputs": {
+                                                                        "name": "keywords",
+                                                                        "value": "@items('For_each_3')"
+                                                                    },
+                                                                    "runAfter": {},
+                                                                    "type": "AppendToArrayVariable"
+                                                                }
+                                                            },
+                                                            "foreach": "@body('キー_フレーズ')?['keyPhrases']",
+                                                            "runAfter": {
+                                                                "キー_フレーズ": [
+                                                                    "Succeeded"
+                                                                ]
+                                                            },
+                                                            "type": "Foreach"
+                                                        },
+                                                        "キー_フレーズ": {
+                                                            "inputs": {
+                                                                "body": {
+                                                                    "text": "@items('For_each_2')['TweetText']"
+                                                                },
+                                                                "host": {
+                                                                    "connection": {
+                                                                        "name": "@parameters('$connections')['cognitiveservicestextanalytics']['connectionId']"
+                                                                    }
+                                                                },
+                                                                "method": "post",
+                                                                "path": "/keyPhrases"
+                                                            },
+                                                            "runAfter": {
+                                                                "感情の格納": [
+                                                                    "Succeeded"
+                                                                ]
+                                                            },
+                                                            "type": "ApiConnection"
+                                                        },
+                                                        "感情の格納": {
+                                                            "inputs": {
+                                                                "name": "sentiment",
+                                                                "value": "@body('感情の検出')?['score']"
+                                                            },
+                                                            "runAfter": {
+                                                                "感情の検出": [
+                                                                    "Succeeded"
+                                                                ]
+                                                            },
+                                                            "type": "AppendToArrayVariable"
+                                                        },
+                                                        "感情の検出": {
+                                                            "inputs": {
+                                                                "body": {
+                                                                    "language": "ja",
+                                                                    "text": "@items('For_each_2')['TweetText']"
+                                                                },
+                                                                "host": {
+                                                                    "connection": {
+                                                                        "name": "@parameters('$connections')['cognitiveservicestextanalytics']['connectionId']"
+                                                                    }
+                                                                },
+                                                                "method": "post",
+                                                                "path": "/sentiment"
+                                                            },
+                                                            "runAfter": {},
+                                                            "type": "ApiConnection"
+                                                        }
+                                                    },
+                                                    "expression": {
+                                                        "and": [
+                                                            {
+                                                                "not": {
+                                                                    "startsWith": [
+                                                                        "@items('For_each_2')['TweetText']",
+                                                                        "RT "
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ]
+                                                    },
+                                                    "runAfter": {},
+                                                    "type": "If"
+                                                }
+                                            },
+                                            "foreach": "@body('ユーザー_タイムラインの取得')",
+                                            "runAfter": {
+                                                "ユーザー_タイムラインの取得": [
+                                                    "Succeeded"
+                                                ]
+                                            },
+                                            "type": "Foreach"
+                                        },
+                                        "キーフレーズなどを返す": {
+                                            "inputs": {
+                                                "body": {
+                                                    "keyphreases": "@variables('keywords')",
+                                                    "sentiments": "@variables('sentiment')",
+                                                    "twitterName": "@variables('userName')"
+                                                },
+                                                "headers": {
+                                                    "Content-Type": "application/json"
+                                                },
+                                                "schema": {
+                                                    "properties": {
+                                                        "keyphreases": {
+                                                            "items": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": "array"
+                                                        },
+                                                        "sentiments": {
+                                                            "items": {
+                                                                "type": "number"
+                                                            },
+                                                            "type": "array"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "statusCode": 200
+                                            },
+                                            "kind": "Http",
+                                            "runAfter": {
+                                                "For_each_2": [
+                                                    "Succeeded"
+                                                ]
+                                            },
+                                            "type": "Response"
+                                        },
+                                        "ユーザー_タイムラインの取得": {
+                                            "inputs": {
+                                                "host": {
+                                                    "connection": {
+                                                        "name": "@parameters('$connections')['twitter']['connectionId']"
+                                                    }
+                                                },
+                                                "method": "get",
+                                                "path": "/usertimeline",
+                                                "queries": {
+                                                    "maxResults": 5,
+                                                    "userName": "@variables('userName')"
+                                                }
+                                            },
+                                            "runAfter": {},
+                                            "type": "ApiConnection"
+                                        }
+                                    }
+                                },
+                                "expression": {
+                                    "and": [
+                                        {
+                                            "equals": [
+                                                "@length(variables('userName'))",
+                                                0
+                                            ]
+                                        }
+                                    ]
+                                },
+                                "runAfter": {
+                                    "For_each": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "If"
+                            }
+                        },
+                        "case": "CharacterAnalytics"
+                    },"挨拶のケース": {
+                        "actions": {
+                            "応答_2": {
+                                "inputs": {
+                                    "body": {
+                                        "message": "こんにちは"
+                                    },
+                                    "headers": {
+                                        "Content-Type": "application/json"
+                                    },
+                                    "statusCode": 200
+                                },
+                                "kind": "Http",
+                                "runAfter": {},
+                                "type": "Response"
+                            }
+                        },
+                        "case": "Greetings"
+                    },
+                    "案別出来なかったケース": {
+                        "actions": {
+                            "応答": {
+                                "inputs": {
+                                    "body": {
+                                        "message": "すみません、わかりません"
+                                    },
+                                    "headers": {
+                                        "Content-Type": "application/json"
+                                    },
+                                    "statusCode": 200
+                                },
+                                "kind": "Http",
+                                "runAfter": {},
+                                "type": "Response"
+                            }
+                        },
+                        "case": "None"
+                    }
+                },
+                "default": {
+                    "actions": {
+                        "応答_5": {
+                            "inputs": {
+                                "body": {
+                                    "message": "よくわかりません"
+                                },
+                                "headers": {
+                                    "Content-Type": "application/json"
+                                },
+                                "statusCode": 200
+                            },
+                            "kind": "Http",
+                            "runAfter": {},
+                            "type": "Response"
+                        }
+                    }
+                },
+                "expression": "@body('Get_prediction')?['topScoringIntent']?['intent']",
+                "runAfter": {
+                    "Get_prediction": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Switch"
+            },
+            "キーワード格納用変数": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "keywords",
+                            "type": "Array"
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "Twitterユーザー名格納用変数": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "InitializeVariable"
+            },
+            "入力パラメータの格納用変数": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "text",
+                            "type": "String",
+                            "value": "@triggerBody()?['text']"
+                        }
+                    ]
+                },
+                "runAfter": {},
+                "type": "InitializeVariable"
+            },
+            "感情格納用変数": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "sentiment",
+                            "type": "Array"
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "キーワード格納用変数": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "InitializeVariable"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {
+            "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+            }
+        },
+        "triggers": {
+            "manual": {
+                "inputs": {
+                    "method": "POST",
+                    "schema": {
+                        "properties": {
+                            "text": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "kind": "Http",
+                "type": "Request"
+            }
+        }
+    }
+}
