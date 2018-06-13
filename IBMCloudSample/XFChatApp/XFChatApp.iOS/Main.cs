@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace Watson.XFApp.iOS
+namespace XFChatApp.iOS
 {
     public class Application
     {

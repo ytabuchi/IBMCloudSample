@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
-using Watson.XFApp.Models;
+using XFChatApp.Models;
 using System.Linq;
 
-namespace Watson.XFApp.Helpers
+namespace XFChatApp.Helpers
 {
     [ContentProperty(nameof(Templates))]
     public class MessageTemplateSelector : DataTemplateSelector

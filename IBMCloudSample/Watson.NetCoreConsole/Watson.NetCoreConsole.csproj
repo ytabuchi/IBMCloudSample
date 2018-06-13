@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Watson.NetStandardCore\Watson.NetStandardCore.csproj" />
     <ProjectReference Include="..\CloudServices.Core\CloudServices.Core.csproj" />
+    <ProjectReference Include="..\IBMCloud.NetStandardCore\IBMCloud.NetStandardCore.csproj" />
   </ItemGroup>
 
 </Project>

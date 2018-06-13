@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Watson.NetStandardCore
+namespace IBMCloud.NetStandardCore
 {
     public class NodeRedClient : ICloudService
     {

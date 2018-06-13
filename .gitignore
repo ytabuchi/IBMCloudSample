@@ -6,6 +6,7 @@ ApiKey.cs
 ApiKeys.cs
 Secret.cs
 Secrets.cs
+Secrets.partial.cs
 Resource.Designer.cs
 
 ### Android ###
@@ -647,10 +648,3 @@ __pycache__/
 # should be stored in the .pubxml.user file.
 
 # End of https://www.gitignore.io/api/macos,xcode,swift,windows,android,jetbrains,visualstudio,xamarinstudio,androidstudio,visualstudiocode
-
-IBMCloudSample/Watson.NetStandardCore/Secrets.cs
-# Azure Secrets
-IBMCloudSample/Azure.NetStandardCore/Secrets.partial.cs
-IBMCloudSample/Azure.NetStandardCore/Secrets.partial.cs
-IBMCloudSample/Azure.NetStandardCore/Secrets.partial.cs
-IBMCloudSample/Azure.NetStandardCore/Secrets.partial.cs

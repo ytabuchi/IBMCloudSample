@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage x:Class="Watson.XFApp.MainPage"
+<ContentPage x:Class="XFChatApp.MainPage"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             xmlns:local="clr-namespace:Watson.XFApp.Helpers"
+             xmlns:local="clr-namespace:XFChatApp.Helpers"
              ios:Page.UseSafeArea="true">
     <ContentPage.Resources>
         <ResourceDictionary>
             <!--  DataTemplate を定義しています。  -->
-            <!-- inputTemplate -->
+            <!--  inputTemplate  -->
             <DataTemplate x:Key="inputTemplate">
                 <ViewCell>
                     <StackLayout Orientation="Horizontal" Spacing="10">
@@ -24,18 +24,18 @@
                         <Image Margin="0,5"
                                HorizontalOptions="End"
                                HeightRequest="50"
-                               Source="{local:ImageResource Source='Watson.XFApp.Helpers.avatar.png'}"
+                               Source="{local:ImageResource Source='XFChatApp.Helpers.avatar.png'}"
                                WidthRequest="50" />
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
-            <!-- IBM Cloud 用のテンプレート outputTemplateWatson -->
+            <!--  IBM Cloud 用のテンプレート outputTemplateWatson  -->
             <DataTemplate x:Key="outputTemplateWatson">
                 <ViewCell>
                     <StackLayout Orientation="Horizontal" Spacing="10">
                         <Image Margin="0,5"
                                HeightRequest="50"
-                               Source="{local:ImageResource Source='Watson.XFApp.Helpers.watson.png'}"
+                               Source="{local:ImageResource Source='XFChatApp.Helpers.watson.png'}"
                                WidthRequest="50" />
                         <Label VerticalOptions="Center"
                                FontSize="Medium"
@@ -47,13 +47,13 @@
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
-            <!-- Azure 用のテンプレート outputTemplateAzure -->
+            <!--  Azure 用のテンプレート outputTemplateAzure  -->
             <DataTemplate x:Key="outputTemplateAzure">
                 <ViewCell>
                     <StackLayout Orientation="Horizontal" Spacing="10">
                         <Image Margin="0,5"
                                HeightRequest="50"
-                               Source="{local:ImageResource Source='Watson.XFApp.Helpers.azure.png'}"
+                               Source="{local:ImageResource Source='XFChatApp.Helpers.azure.png'}"
                                WidthRequest="50" />
                         <Label VerticalOptions="Center"
                                FontSize="Medium"
@@ -67,19 +67,16 @@
             </DataTemplate>
             <!--  Selector指定  -->
             <local:MessageTemplateSelector x:Key="messageTemplateSelector">
-                <local:Template TemplateType="input"
-                                DataTemplate="{StaticResource inputTemplate}" />
-                <local:Template TemplateType="watson"
-                                DataTemplate="{StaticResource outputTemplateWatson}" />
-                <local:Template TemplateType="azure"
-                                DataTemplate="{StaticResource outputTemplateAzure}" />                
+                <local:Template DataTemplate="{StaticResource inputTemplate}" TemplateType="input" />
+                <local:Template DataTemplate="{StaticResource outputTemplateWatson}" TemplateType="watson" />
+                <local:Template DataTemplate="{StaticResource outputTemplateAzure}" TemplateType="azure" />
             </local:MessageTemplateSelector>
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <!-- 実際のレイアウト -->
+    <!--  実際のレイアウト  -->
     <StackLayout>
-        <!-- ItemTemplateにmessageTemplateSelectorを指定することでMessageTemplateSelectorが呼び出されます -->
+        <!--  ItemTemplateにmessageTemplateSelectorを指定することでMessageTemplateSelectorが呼び出されます  -->
         <ListView x:Name="listView"
                   VerticalOptions="FillAndExpand"
                   HasUnevenRows="True"

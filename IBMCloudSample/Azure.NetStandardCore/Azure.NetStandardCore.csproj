@@ -13,4 +13,7 @@
   <ItemGroup>
     <Compile Remove="Secrets.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Secrets.partial.cs~RF1f3c6303.TMP" />
+  </ItemGroup>
 </Project>
