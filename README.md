@@ -1,6 +1,6 @@
-# IBM Cloud Sample
+# IBM Cloud and Azure Sample
 
-Sample app using IBM Cloud and Microsoft Azure
+このリポジトリは Xamarin.Forms で IBM Cloud の Watson や Node-RED、Personality Insights と、Microsoft Azure の Language Understanding（LUIS）や Logic Apps、Text Analytics を使用したチャットアプリを作成するサンプルです。
 
 本リポジトリをクローンした後で、`Watson.NetStandardCore/Secrets_sample.cs` をコピーして `Secrets.cs` として保存し、Watson の資格情報を入力してください。
 `NodeRedUrl` には、作成した Node-RED のエンドポイント URL を入力します。
@@ -8,10 +8,36 @@ Sample app using IBM Cloud and Microsoft Azure
 `Azure.NetStandardCore/Secrets.partial_Sample.cs` も同様にコピーして `Secrets.partial.cs` として保存し、`Endpoint` に Logic Apps のエンドポイント URL を入力します。
 
 
+## IBM Cloud
 
+IBM Cloud を使用した場合の設定方法です。
 
+[`MainPage.xaml.cs`](https://github.com/ytabuchi/IBMCloudSample/blob/master/IBMCloudSample/Watson.XFApp/Watson.XFApp/MainPage.xaml.cs#L1-L3) の `#define` を使用して Watson のみを使用した挨拶だけが出来るチャットアプリ、Node-RED を使用した性格分析が出来るチャットアプリを切り替えることができます。
+
+実行に必要な各サービスについて、以下に作成方法、操作が必要な内容などを記載します。
+
+### 用意するモノ
+
+[IBM Cloud ライト・アカウント](https://www.ibm.com/cloud-computing/jp/ja/bluemix/lite-account/)
+
+大体のことがライトアカウントで出来てしまいます。クレジットカード登録も不要です。素晴らしい！
+
+制限事項として以下がありますので、その点だけご注意ください。ガッと集中してやる分にはまったく問題ないはずです。
+
+- 10日間 開発なしでアプリを自動停止
+- 30日間 活動なしでサービスの自動削除
+- 「組織の作成」画面では、地域に「米国南部」を選択を行う必要があります。
+- 過去にIBM Cloud 30日フリートライアルに登録したメールアドレスは、ライト・アカウントへの登録は行えません。別のメールアドレスにてご登録ください。
+
+アカウントを作成したら、[Dashboard](https://console.bluemix.net/dashboard/apps/) の `リソースの作成` から各種サービスを作成できます。
+
+<img src="images/ibmcloud01.png" width="600" />
 
 ### Watson Assistant
+
+任意のサービス名でライトプランであることを確認し、Watson Assistant を作成します。
+
+<img src="images/watson00.png" width="600" />
 
 作成した Watson Assistant にアクセスし `ツールの起動` をクリックします。
 
@@ -21,7 +47,7 @@ Sample app using IBM Cloud and Microsoft Azure
 
 <img src="images/watson02.png" width="450" />
 
-`Watson.json` を選択し、`Import` ボタンをクリックするとインポートされます。
+プロジェクトのるーとにある `Watson.json` を選択し、`Import` ボタンをクリックするとインポートされます。
 
 <img src="images/watson03.png" width="450" />
 
@@ -66,15 +92,17 @@ Dashboard の `リソースの作成` から「Node-RED Starter」を選択し�
 
 <img src="images/nodered02.png" width="600" />
 
-プランを確認し（Node-RED はちょろっとお金がかかるっぽいです…！）、`作成` をクリックします。
+ライトプランであることを確認し `作成` をクリックします。
 
 <img src="images/nodered03.png" width="600" />
 
-Node-RED で Watson の各サービスのノードを使う場合は、下にスクロールしたところにある `接続` から、アカウントに紐づいているサービスを登録することで
+> 写真では Default プランしかありませんが、私が従量課金プラン（PAYG）を使用しているためでライトプランでは完全無料でお使いいただけます。プランの種類、金額などは [IBM Cloud料金設定](https://www.ibm.com/cloud-computing/bluemix/ja/pricing) をご覧ください。
+
+Node-RED で Watson の各サービスのノードを使う場合は、下にスクロールしたところにある `接続の作成` から、アカウントに紐づいているサービスを登録することで資格情報の入力を省略できます。作成した Watson Assistant と Personality Insights を接続してください。
 
 <img src="images/nodered04.png" width="600" />
 
-`アプリ URL にアクセス` をクリックします。
+接続が完了したら、`アプリ URL にアクセス` をクリックします。
 
 <img src="images/nodered05.png" width="450" />
 
@@ -82,11 +110,11 @@ Node-RED で Watson の各サービスのノードを使う場合は、下にス
 
 <img src="images/nodered06.png" width="450" />
 
-以下のようにワークフローが全て読み込まれます。
+以下のように Node-RED のワークフローが全て読み込まれます。
 
 <img src="images/nodered07.png" width="600" />
 
-Twitter のツイートを取得するため、Twitter の開発者アカウントが必要です。
+このフローでは、指定した Twitter アカウントのツイートを取得するため、Twitter の開発者アカウントが必要です。
 
 https://apps.twitter.com/ にログインし、Twitter アプリを作成してください。
 
@@ -98,7 +126,7 @@ https://apps.twitter.com/ にログインし、Twitter アプリを作成して�
 
 <img src="images/nodered09.png" width="450" />
 
-Base64 エンコードされたキーは、https://developer.twitter.com/en/docs/basics/authentication/overview/application-only の「Issuing application-only requests Step 1: Encode consumer key and secret」に書いてありますが、`Consumer Key:Consumer Secrets` と `:` でつなげてエンコードするだけです。
+Base64 エンコードされたキーは、https://developer.twitter.com/en/docs/basics/authentication/overview/application-only の「Issuing application-only requests Step 1: Encode consumer key and secret」に書いてありますが、`Consumer Key:Consumer Secrets` と `:` でつなげてエンコードして作成します。
 
 私は http://www.convertstring.com/ja/EncodeDecode/Base64Encode のサイトを利用してエンコードしました。
 
