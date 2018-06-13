@@ -2,8 +2,8 @@
 <ContentPage x:Class="XFChatApp.MainPage"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:local="clr-namespace:XFChatApp.Helpers"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="true">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -75,7 +75,7 @@
     </ContentPage.Resources>
 
     <!--  実際のレイアウト  -->
-    <StackLayout>
+    <StackLayout VerticalOptions="FillAndExpand" Padding="5,0">
         <!--  ItemTemplateにmessageTemplateSelectorを指定することでMessageTemplateSelectorが呼び出されます  -->
         <ListView x:Name="listView"
                   VerticalOptions="FillAndExpand"
