@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace Watson.NetStandardCore
+namespace IBMCloud.NetStandardCore
 {
     public class WatsonAssistantClient : ICloudService
     {

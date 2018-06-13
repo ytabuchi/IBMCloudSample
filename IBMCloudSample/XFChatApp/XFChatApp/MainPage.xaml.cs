@@ -8,13 +8,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Watson.NetStandardCore;
+using IBMCloud.NetStandardCore;
 using Xamarin.Forms;
-using Watson.XFApp.Models;
+using XFChatApp.Models;
 using CloudServices.Core;
 using Azure.NetStandardCore;
 
-namespace Watson.XFApp
+namespace XFChatApp
 {
     public partial class MainPage : ContentPage
     {

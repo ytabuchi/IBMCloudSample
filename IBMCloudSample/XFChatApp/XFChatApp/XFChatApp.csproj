@@ -11,13 +11,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.0.0.446417" />
+    <PackageReference Include="Xamarin.Forms" Version="3.0.0.561731" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Watson.NetStandardCore\Watson.NetStandardCore.csproj" />
     <ProjectReference Include="..\..\CloudServices.Core\CloudServices.Core.csproj" />
     <ProjectReference Include="..\..\Azure.NetStandardCore\Azure.NetStandardCore.csproj" />
+    <ProjectReference Include="..\..\IBMCloud.NetStandardCore\IBMCloud.NetStandardCore.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Helpers\azure.png" />

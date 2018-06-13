@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Watson.NetStandardCore", "Watson.NetStandardCore\Watson.NetStandardCore.csproj", "{53DE6F16-E08F-454C-85E2-A0FA5AF9C9D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBMCloud.NetStandardCore", "IBMCloud.NetStandardCore\IBMCloud.NetStandardCore.csproj", "{53DE6F16-E08F-454C-85E2-A0FA5AF9C9D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Watson.NetCoreConsole", "Watson.NetCoreConsole\Watson.NetCoreConsole.csproj", "{B05050E2-363F-4567-95A3-BFFD469BC7E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Watson.NetCoreConsole", "Watson.NetCoreConsole\Watson.NetCoreConsole.csproj", "{B05050E2-363F-4567-95A3-BFFD469BC7E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Watson.XFApp.Android", "Watson.XFApp\Watson.XFApp.Android\Watson.XFApp.Android.csproj", "{DC8CFA22-DACA-4E1C-BF4C-3EC287BB2663}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XFChatApp.Android", "XFChatApp\XFChatApp.Android\XFChatApp.Android.csproj", "{DC8CFA22-DACA-4E1C-BF4C-3EC287BB2663}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Watson.XFApp.iOS", "Watson.XFApp\Watson.XFApp.iOS\Watson.XFApp.iOS.csproj", "{763E7AB9-2D81-4DEA-A0CF-A8B74AA88CB7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XFChatApp.iOS", "XFChatApp\XFChatApp.iOS\XFChatApp.iOS.csproj", "{763E7AB9-2D81-4DEA-A0CF-A8B74AA88CB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Watson.XFApp", "Watson.XFApp\Watson.XFApp\Watson.XFApp.csproj", "{5E5AB869-3764-4F69-B609-816ED2417F5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XFChatApp", "XFChatApp\XFChatApp\XFChatApp.csproj", "{5E5AB869-3764-4F69-B609-816ED2417F5D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{9E9D2F5C-66BE-49E8-8750-D3125748B42A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudServices.Core", "CloudServices.Core\CloudServices.Core.csproj", "{2318C4A7-B2A8-4A67-8E3E-D68D0A8B5BBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudServices.Core", "CloudServices.Core\CloudServices.Core.csproj", "{2318C4A7-B2A8-4A67-8E3E-D68D0A8B5BBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Azure.NetStandardCore", "Azure.NetStandardCore\Azure.NetStandardCore.csproj", "{A888C587-FD56-4AF7-8646-EBA1DC0A9173}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Azure.NetStandardCore", "Azure.NetStandardCore\Azure.NetStandardCore.csproj", "{A888C587-FD56-4AF7-8646-EBA1DC0A9173}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

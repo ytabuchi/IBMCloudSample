@@ -4,7 +4,7 @@ using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Watson.XFApp.Helpers
+namespace XFChatApp.Helpers
 {
     [ContentProperty("Source")]
     public class ImageResourceExtension : IMarkupExtension

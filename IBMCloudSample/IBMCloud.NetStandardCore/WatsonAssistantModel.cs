@@ -4,7 +4,7 @@ using System.Globalization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Watson.NetStandardCore
+namespace IBMCloud.NetStandardCore
 {
     public partial class WatsonAssistantModel
     {

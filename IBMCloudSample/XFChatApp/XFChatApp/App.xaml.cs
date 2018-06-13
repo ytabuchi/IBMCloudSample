@@ -3,7 +3,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation (XamlCompilationOptions.Compile)]
-namespace Watson.XFApp
+
+namespace XFChatApp
 {
 	public partial class App : Application
 	{
