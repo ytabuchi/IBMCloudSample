@@ -47,7 +47,7 @@ IBM Cloud を使用した場合の設定方法です。
 
 <img src="images/watson02.png" width="450" />
 
-プロジェクトのるーとにある `Watson.json` を選択し、`Import` ボタンをクリックするとインポートされます。
+プロジェクトのルートにある `Watson.json` を選択し、`Import` ボタンをクリックするとインポートされます。
 
 <img src="images/watson03.png" width="450" />
 
