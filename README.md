@@ -10,9 +10,13 @@
 
 ## IBM Cloud
 
-IBM Cloud を使用した場合の設定方法です。
+実際に動いている Node-RED のサンプルは [こちら](https://xm-node-red-sample.mybluemix.net/conversation?speech=migueldeicaza%E3%81%AE%E6%80%A7%E6%A0%BC%E3%81%AF%EF%BC%9F) です。
 
-[`MainPage.xaml.cs`](https://github.com/ytabuchi/IBMCloudSample/blob/master/IBMCloudSample/Watson.XFApp/Watson.XFApp/MainPage.xaml.cs#L1-L3) の `#define` を使用して Watson のみを使用した挨拶だけが出来るチャットアプリ、Node-RED を使用した性格分析が出来るチャットアプリを切り替えることができます。
+> 2018年6月段階では、IBM Cloud 上の Node-RED で Personality Insights の Input の言語設定を日本語にすると Node-RED がクラッシュしてしまうバグがあり（ローカルで Node-RED を動作させた場合は問題ない）、英語の Tweet しか分析できないため、migueldeicaza の Tweet をサンプルとして分析しています。
+
+以下、IBM Cloud を使用した場合の設定方法です。
+
+[`MainPage.xaml.cs`](https://github.com/ytabuchi/IBMCloudSample/blob/master/IBMCloudSample/XFChatApp/XFChatApp/MainPage.xaml.cs#L1-L3) の `#define` を使用して Watson のみを使用した挨拶だけが出来るチャットアプリ、Node-RED を使用した性格分析が出来るチャットアプリを切り替えることができます。
 
 実行に必要な各サービスについて、以下に作成方法、操作が必要な内容などを記載します。
 
